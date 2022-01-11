@@ -39,6 +39,12 @@ export function ErrorAlert(error) {
                 ¡Post eliminado con exito!
             </Alert>
         )
+    } else if (error.className === 'AlertEditCard') {
+        return (
+            <Alert variant={'success'} className={`${error.className}`}>
+                ¡Post editado con exito!
+            </Alert>
+        )
     } 
     else {
         return <></>

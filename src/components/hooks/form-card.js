@@ -32,6 +32,7 @@ export default function MediaCard({ id, user, email, post }) {
                 id: e.target.dataset.id,
             })
         }
+        e.preventDefault();
         if (e.target.dataset.method === 'PUT') {
             let data = await PostFetch({
                 method: 'PUT',
@@ -40,7 +41,6 @@ export default function MediaCard({ id, user, email, post }) {
             setForm({ state: false })
             setEdit(data);
         }
-        e.preventDefault()
         if (e.target.dataset.method === 'DELETE') {
             let data = await PostFetch({
                 method: 'DELETE',
@@ -54,8 +54,10 @@ export default function MediaCard({ id, user, email, post }) {
         }
     }
     useEffect(() => {
-        console.log(form.state);
-    }, [form.state])
+        if (edit.ok) {
+            window.location.reload()
+        }
+    }, [edit])
     if (form.state) {
         return (
             <Card sx={{ maxWidth: 345 }} className='mb-2 mw-100'>
@@ -106,6 +108,11 @@ export default function MediaCard({ id, user, email, post }) {
                         <Button type='submit' onClick={(e) => cardSubmit(e)} size="small" data-id={id} data-method={'DELETE'}>Delete</Button>
                     </Form>
                 </CardActions>
+                {
+                    edit.ok
+                    ?<ErrorAlert error={edit} className='AlertEditCard'/>
+                    :<></>
+                }
             </Card>
         );
     }else{

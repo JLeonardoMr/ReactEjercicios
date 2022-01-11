@@ -70,12 +70,7 @@ export function SectionForm() {
                 })
             }
         })
-    }, [error]);
-    useEffect(() => {
-        return () => {
-            console.log('eso');
-        }
-    }, [apiData])
+    }, [error,apiData]);
     return (
         <Row>
             <Col sm={6}>
@@ -99,7 +94,6 @@ export function SectionForm() {
                     <Button id={'btnSubmit'} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
                         Submit
                     </Button>
-                    {/* <input type="hidden" name="id" id={1} onClick={PostFetch}/> */}
                 </Form>
                 {
                     (error.ok)

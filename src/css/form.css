@@ -4,6 +4,12 @@
     animation-delay: 3s;
     animation-fill-mode: forwards;
 }
+.AlertEditCard {
+    animation-name: AlertCardMsg ;
+    animation-duration: 0s;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+}
 @keyframes AlertCardMsg {
     0%{
         opacity: 1;
