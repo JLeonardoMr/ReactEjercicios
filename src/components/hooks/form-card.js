@@ -9,7 +9,6 @@ import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { ErrorAlert } from "./error";
 export default function MediaCard({ id, user, email, post, reload }) {
-    console.log(reload);
     const [form, setForm] = useState({
         state: false,
         id: ""
@@ -24,42 +23,46 @@ export default function MediaCard({ id, user, email, post, reload }) {
         })
     }
     const cardSubmit = async (e) => {
-        if (e.target.dataset.method === 'EDIT') {
-            setForm({
-                username: e.target.dataset.user,
-                email: e.target.dataset.email,
-                msg: e.target.dataset.post,
-                state: true,
-                id: e.target.dataset.id,
-            })
-        }
         e.preventDefault();
-        if (e.target.dataset.method === 'PUT') {
-            let data = await PostFetch({
-                method: 'PUT',
-                data: form
-            })
-            setForm({ state: false })
-            setEdit(data);
-            reload.setError({})
-        }
-        if (e.target.dataset.method === 'DELETE') {
-            let data = await PostFetch({
-                method: 'DELETE',
-                id: e.target.dataset.id,
-            })
-            setForm({ state: null })
-            setDeleteCard(data);
-        }
-        if (e.target.dataset.method === 'CANCEL') {
-            setForm({ state: false })
+        switch (e.target.dataset.method) {
+            case 'EDIT':
+                setForm({
+                    username: e.target.dataset.user,
+                    email: e.target.dataset.email,
+                    msg: e.target.dataset.post,
+                    state: true,
+                    id: e.target.dataset.id,
+                })
+                break;
+            case 'CANCEL':
+                setForm({ state: false })
+                break;
+            case 'PUT':
+                let dataPut = await PostFetch({
+                    method: 'PUT',
+                    data: form
+                })
+                setForm({ state: false })
+                setEdit(dataPut);
+                reload.setError({})
+                break;
+            case 'DELETE':
+                let dataDelete = await PostFetch({
+                    method: 'DELETE',
+                    id: e.target.dataset.id,
+                })
+                setForm({ state: null })
+                setDeleteCard(dataDelete);
+                break;
+            default:
+                break;
         }
     }
     useEffect(() => {
     }, [edit])
     if (form.state) {
         return (
-            <Card sx={{ maxWidth: 345 }} className='mb-2 mw-100'>
+            <Card sx={{ maxWidth: 345 }} className='my-2 mw-100'>
                 <CardContent>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicUsername">
@@ -89,7 +92,7 @@ export default function MediaCard({ id, user, email, post, reload }) {
         )
     } else if (form.state === false){
         return (
-            <Card sx={{ maxWidth: 345 }} className='mb-2 mw-100'>
+            <Card sx={{ maxWidth: 345 }} className='my-2 mw-100'>
                 <CardContent>
                     <Typography name="username" gutterBottom variant="h5" component="div">
                         {user}
