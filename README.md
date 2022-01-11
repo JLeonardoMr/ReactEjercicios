@@ -1,3 +1,4 @@
+# Dale npm run fake-api a una segunda terminal para que lance el servideo fake
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
