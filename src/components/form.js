@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../css/form.css';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import MediaCard from "./hooks/form-card";
 import { PostFetch } from './helpers/formfetch';
@@ -42,14 +43,16 @@ export function SectionForm() {
         })
     }
     const handleSubmit = async (e) => {
+        e.preventDefault();
         let data = await PostFetch({
             method: 'POST',
             data: form
         })
-        setError(data)
+        setForm({})
+        setError(data);
     }
     useEffect(() => {
-        apiData().then(res => {
+        apiData('http://localhost:3004/profile').then(res => {
             if (res.length > 0) {
                 setData(res)
                 setErr(false)
@@ -67,7 +70,12 @@ export function SectionForm() {
                 })
             }
         })
-    }, [apiData]);
+    }, [error]);
+    useEffect(() => {
+        return () => {
+            console.log('eso');
+        }
+    }, [apiData])
     return (
         <Row>
             <Col sm={6}>
@@ -99,7 +107,7 @@ export function SectionForm() {
                         : (<ErrorAlert ok={error.ok} type={error.type} error={error.status} statusText={error.statusText} url={error.url} />)
                 }
             </Col>
-            <Col>
+            <Col sm={6}>
                 <LoadMsg error={err} data={data} />
             </Col>
         </Row>

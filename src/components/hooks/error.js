@@ -20,7 +20,7 @@ export function ErrorMsg(error) {
 export function ErrorAlert(error) {
     // console.log(error);
     // variant={ }
-    if (error.ok) {
+    if (error.ok === true ) {
         return (
             <Alert variant={'success'} className='mt-3'>
                 {error.statusText} Succsess
@@ -33,7 +33,14 @@ export function ErrorAlert(error) {
                 <Alert.Link href="#">{error.url}</Alert.Link>
             </Alert>
         )
-    } else {
+    } else if (error.className === 'AlertDeleteCard') {
+        return (
+            <Alert variant={'success'} className={`${error.className}`}>
+                ¡Post eliminado con exito!
+            </Alert>
+        )
+    } 
+    else {
         return <></>
     }
 }

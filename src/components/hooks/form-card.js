@@ -5,13 +5,16 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { PostFetch } from '../helpers/formfetch';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
+import { ErrorAlert } from "./error";
 export default function MediaCard({ id, user, email, post }) {
     const [form, setForm] = useState({
         state: false,
         id: ""
     })
+    const [edit, setEdit] = useState({})
+    const [deleteCard, setDeleteCard] = useState({})
     const cardChanged = (e) => {
         setForm({
             ...form,
@@ -20,14 +23,6 @@ export default function MediaCard({ id, user, email, post }) {
         })
     }
     const cardSubmit = async (e) => {
-        if (e.target.dataset.method === 'DELETE') {
-            let data = await PostFetch({
-                method: 'DELETE',
-                id: e.target.dataset.id,
-            })
-            setForm({ state: false })
-            window.location.reload()
-        }
         if (e.target.dataset.method === 'EDIT') {
             setForm({
                 username: e.target.dataset.user,
@@ -43,25 +38,45 @@ export default function MediaCard({ id, user, email, post }) {
                 data: form
             })
             setForm({ state: false })
-            console.log(data);
+            setEdit(data);
+        }
+        e.preventDefault()
+        if (e.target.dataset.method === 'DELETE') {
+            let data = await PostFetch({
+                method: 'DELETE',
+                id: e.target.dataset.id,
+            })
+            setForm({ state: null })
+            setDeleteCard(data);
         }
         if (e.target.dataset.method === 'CANCEL') {
             setForm({ state: false })
         }
     }
+    useEffect(() => {
+        console.log(form.state);
+    }, [form.state])
     if (form.state) {
         return (
-            <Card sx={{ maxWidth: 345 }} className='mb-2'>
+            <Card sx={{ maxWidth: 345 }} className='mb-2 mw-100'>
                 <CardContent>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicUsername">
-                            <Form.Control maxLength={20} type="text" name="username" value={form.username} placeholder="Enter Username" onChange={cardChanged} />
+                            <Form.Control maxLength={40} type="text" name="username" value={form.username} placeholder="Enter Username" onChange={cardChanged} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" name="email" placeholder="Email" onChange={cardChanged} value={form.email} />
+                            <Form.Control maxLength={40} type="email" name="email" placeholder="Email" onChange={cardChanged} value={form.email} />
                         </Form.Group>
                         <div className="mb-3">
-                            <textarea className="form-control" id="exampleFormControlTextarea1" name="msg" value={form.msg} rows="3" style={{ resize: 'none' }} onChange={cardChanged}></textarea>
+                            <textarea
+                                className="form-control"
+                                id="exampleFormControlTextarea1"
+                                name="msg"
+                                value={form.msg}
+                                rows="3"
+                                style={{ resize: 'none' }}
+                                onChange={cardChanged}
+                            />
                         </div>
                         <CardActions>
                             <Button type='submit' onClick={(e) => cardSubmit(e)} size="small" data-id={form.id} data-method={'PUT'}>Save</Button>
@@ -71,24 +86,33 @@ export default function MediaCard({ id, user, email, post }) {
                 </CardContent>
             </Card>
         )
+    } else if (form.state === false){
+        return (
+            <Card sx={{ maxWidth: 345 }} className='mb-2 mw-100'>
+                <CardContent>
+                    <Typography name="username" gutterBottom variant="h5" component="div">
+                        {user}
+                    </Typography>
+                    <Typography name="email" variant="body2" color="text.secondary">
+                        {post}
+                    </Typography>
+                    <Typography name="msg" className='mt-2' color="text.secondary">
+                        {email}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button onClick={(e) => cardSubmit(e)} size="small" data-id={id} data-user={user} data-email={email} data-post={post} data-method={'EDIT'}>Edit</Button>
+                    <Form>
+                        <Button type='submit' onClick={(e) => cardSubmit(e)} size="small" data-id={id} data-method={'DELETE'}>Delete</Button>
+                    </Form>
+                </CardActions>
+            </Card>
+        );
+    }else{
+        return (
+            <>
+                <ErrorAlert error={deleteCard} className='AlertDeleteCard' />
+            </>
+        )
     }
-    return (
-        <Card sx={{ maxWidth: 345 }} className='mb-2'>
-            <CardContent>
-                <Typography name="username" gutterBottom variant="h5" component="div">
-                    {user}
-                </Typography>
-                <Typography name="email" variant="body2" color="text.secondary">
-                    {post}
-                </Typography>
-                <Typography name="msg" className='mt-2' color="text.secondary">
-                    {email}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button onClick={(e) => cardSubmit(e)} size="small" data-id={id} data-user={user} data-email={email} data-post={post} data-method={'EDIT'}>Edit</Button>
-                <Button type='submit' onClick={(e) => cardSubmit(e)} size="small" data-id={id} data-method={'DELETE'}>Delete</Button>
-            </CardActions>
-        </Card>
-    );
 }
