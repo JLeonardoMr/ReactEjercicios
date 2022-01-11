@@ -27,11 +27,11 @@ export default function MediaCard({ id, user, email, post, reload }) {
         switch (e.target.dataset.method) {
             case 'EDIT':
                 setForm({
-                    username: e.target.dataset.user,
-                    email: e.target.dataset.email,
-                    msg: e.target.dataset.post,
+                    username: user,
+                    email: email,
+                    msg: post,
                     state: true,
-                    id: e.target.dataset.id,
+                    id: id,
                 })
                 break;
             case 'CANCEL':
@@ -49,7 +49,7 @@ export default function MediaCard({ id, user, email, post, reload }) {
             case 'DELETE':
                 let dataDelete = await PostFetch({
                     method: 'DELETE',
-                    id: e.target.dataset.id,
+                    id: id,
                 })
                 setForm({ state: null })
                 setDeleteCard(dataDelete);
@@ -83,7 +83,7 @@ export default function MediaCard({ id, user, email, post, reload }) {
                             />
                         </div>
                         <CardActions>
-                            <Button type='submit' onClick={(e) => cardSubmit(e)} size="small" data-id={form.id} data-method={'PUT'}>Save</Button>
+                            <Button type='submit' onClick={(e) => cardSubmit(e)} size="small"  data-method={'PUT'}>Save</Button>
                             <Button onClick={(e) => cardSubmit(e)} size="small" data-method={'CANCEL'}>Cancel</Button>
                         </CardActions>
                     </Form>
@@ -105,9 +105,9 @@ export default function MediaCard({ id, user, email, post, reload }) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button onClick={(e) => cardSubmit(e)} size="small" data-id={id} data-user={user} data-email={email} data-post={post} data-method={'EDIT'}>Edit</Button>
+                    <Button onClick={(e) => cardSubmit(e)} size="small" data-method={'EDIT'}>Edit</Button>
                     <Form>
-                        <Button type='submit' onClick={(e) => cardSubmit(e)} size="small" data-id={id} data-method={'DELETE'}>Delete</Button>
+                        <Button type='submit' onClick={(e) => cardSubmit(e)} size="small" data-method={'DELETE'}>Delete</Button>
                     </Form>
                 </CardActions>
                 {
