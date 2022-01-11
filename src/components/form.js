@@ -6,7 +6,7 @@ import { PostFetch } from './helpers/formfetch';
 import { ErrorAlert, ErrorMsg } from "./hooks/error";
 import useGet from "./hooks/useGet";
 
-function LoadMsg({ error, data , reload}) {
+function LoadMsg({ error, data, reload }) {
     if (error) {
         return (
             <>
@@ -17,7 +17,7 @@ function LoadMsg({ error, data , reload}) {
         return (
             <>
                 {
-                    data.map(el => <MediaCard key={el.id} id={el.id} user={el.user} email={el.email} post={el.post} reload={reload}/>)
+                    data.map(el => <MediaCard key={el.id} id={el.id} user={el.user} email={el.email} post={el.post} reload={reload} />)
                 }
             </>
         )
@@ -62,16 +62,16 @@ export function SectionForm() {
                     error: true,
                     status: res.status,
                     statusText:
-                    (!res.statusText
+                        (!res.statusText
                             ? 'Ocurrio un error'
                             : res.statusText),
-                            type: res.type,
+                    type: res.type,
                     url: res.url
                 })
                 setData({})
             }
         })
-    }, [error,apiData]);
+    }, [error, apiData]);
     return (
         <Row>
             <Col sm={6}>
@@ -103,7 +103,7 @@ export function SectionForm() {
                 }
             </Col>
             <Col sm={6}>
-                <LoadMsg error={err} data={data} reload={{error,setError}} />
+                <LoadMsg error={err} data={data} reload={{ error, setError }} />
             </Col>
         </Row>
     )
