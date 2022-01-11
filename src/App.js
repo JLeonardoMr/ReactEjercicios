@@ -1,16 +1,16 @@
-import React,{ useState } from "react";
-import { Container} from "react-bootstrap";
+import React from "react";
+import { Container } from "react-bootstrap";
 import "./components/Bootstrap";
-import {SectionForm} from "./components/form";
+import { SectionForm } from "./components/form";
 import MaterialUI from "./components/MaterialUI";
 
 function App() {
-  
+
   return (
     <div className="App">
-        <>
-          <MaterialUI />
-        </>
+      <Container fluid className="px-0">
+        <MaterialUI />
+      </Container>
       {/* <section>
         <h1>Frameworks CSS SCSS con React</h1>
         <section>
@@ -18,9 +18,7 @@ function App() {
         </section>
       </section> */}
       <Container fluid>
-        <h3>Ejercicios Seccion 1</h3>
-        <SectionForm/>
-        
+        <SectionForm />
       </Container>
     </div>
   );
