@@ -50,6 +50,7 @@ export function SectionForm() {
         })
         setForm({})
         setError(data);
+        setErr(null)
     }
     useEffect(() => {
         apiData('http://localhost:3004/profile').then(res => {
@@ -57,24 +58,24 @@ export function SectionForm() {
                 setData(res)
                 setErr(false)
             } else {
-                setData({})
                 setErr({
                     error: true,
                     status: res.status,
                     statusText:
-                        (!res.statusText
+                    (!res.statusText
                             ? 'Ocurrio un error'
                             : res.statusText),
-                    type: res.type,
+                            type: res.type,
                     url: res.url
                 })
+                setData({})
             }
         })
     }, [error,apiData]);
     return (
         <Row>
             <Col sm={6}>
-                <h4>Fomulario</h4>
+                <h2>Fomulario</h2>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicUsername">
                         <Form.Label>Username</Form.Label>
