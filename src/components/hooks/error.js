@@ -6,7 +6,7 @@ export function ErrorMsg(error) {
     if (show) {
         return (
             <Col>
-                <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                <Alert className='mt-3' variant="danger" onClose={() => setShow(false)} dismissible>
                     <Alert.Heading>¡Error {error.error}!</Alert.Heading>
                     <p>{error.status}{' '}{error.type}</p>
                     <hr />

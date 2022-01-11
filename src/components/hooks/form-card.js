@@ -8,7 +8,8 @@ import { PostFetch } from '../helpers/formfetch';
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { ErrorAlert } from "./error";
-export default function MediaCard({ id, user, email, post }) {
+export default function MediaCard({ id, user, email, post, reload }) {
+    console.log(reload);
     const [form, setForm] = useState({
         state: false,
         id: ""
@@ -40,6 +41,7 @@ export default function MediaCard({ id, user, email, post }) {
             })
             setForm({ state: false })
             setEdit(data);
+            reload.setError({})
         }
         if (e.target.dataset.method === 'DELETE') {
             let data = await PostFetch({
@@ -54,9 +56,6 @@ export default function MediaCard({ id, user, email, post }) {
         }
     }
     useEffect(() => {
-        if (edit.ok) {
-            window.location.reload()
-        }
     }, [edit])
     if (form.state) {
         return (
