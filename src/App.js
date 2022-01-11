@@ -10,8 +10,6 @@ function App() {
     <div className="App">
       <Container fluid className="px-0">
         <MaterialUI />
-      </Container>
-      <Container fluid>
         <SectionForm />
       </Container>
     </div>

@@ -72,7 +72,7 @@ export function SectionForm() {
         })
     }, [error,apiData]);
     return (
-        <Row>
+        <Row className="px-3">
             <Col sm={6}>
                 <h4>Fomulario</h4>
                 <Form>
