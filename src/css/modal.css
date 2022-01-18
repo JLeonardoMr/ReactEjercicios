@@ -1,0 +1,30 @@
+.modalito{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #25252575;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.modalito.isOpen{
+    display: flex;
+}
+.modalito img{
+    max-width: 100%;
+}
+.modalito-container{
+    position: relative;
+    background-color: whitesmoke;
+    min-width: 200px;
+    max-width: 800px;
+    min-height: max-content;
+}
+.modalito-close{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

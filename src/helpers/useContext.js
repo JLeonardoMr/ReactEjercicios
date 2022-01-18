@@ -4,17 +4,13 @@ const GetAPI = createContext({
     async apiData(url) {
         try {
             let res = await fetch(url);
-            if (!res.ok) {
-                // eslint-disable-next-line no-throw-literal
-                throw res
-            }
+            if (!res.ok) throw res
             let json = await res.json();
             return json
-        } catch (err) {
-            return err
-
+        } catch (error) {
+            return error
         }
-    }
+    },
 })
 
 export default GetAPI;

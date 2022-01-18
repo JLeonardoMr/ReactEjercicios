@@ -18,9 +18,7 @@ export function ErrorMsg(error) {
     return <Button onClick={() => setShow(true)}>Show Alert</Button>;
 }
 export function ErrorAlert(error) {
-    // console.log(error);
-    // variant={ }
-    if (error.ok === true ) {
+    if (error.ok === true) {
         return (
             <Alert variant={'success'} className='mt-3'>
                 {error.statusText} Succsess
@@ -45,8 +43,30 @@ export function ErrorAlert(error) {
                 ¡Post editado con exito!
             </Alert>
         )
-    } 
-    else {
-        return <></>
+    } else if (error.error) {
+        return (
+            <>
+                <Col>
+                    <Alert variant={'danger'} className='mt-3'>
+                        <b>¡Error {error.error.statusText}</b>
+                        <br />
+                        {error.error.status} {error.error.type ? error.error.type : ''}
+                        <hr />
+                        <Alert.Link href="#">
+                            {
+                                error.error.url
+                                    ? error.error.url
+                                    : ''
+                            }
+                        </Alert.Link>
+                    </Alert>
+                </Col>
+            </>
+        )
+    } else {
+        return (
+            <>
+            </>
+        )
     }
 }

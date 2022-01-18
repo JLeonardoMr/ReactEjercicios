@@ -8,6 +8,11 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { ListGroup, Offcanvas } from 'react-bootstrap';
+import { NavLink } from "react-router-dom"
+import { useModal } from '../hooks/useModal';
+import "../css/navbar.css";
+
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -51,17 +56,68 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+
+const OffCanvas = ({ isState, isClose }) => {
+    let array = ['Modal', 'MusicSearch', "Select", 'ContacForm', 'work','User']
+    //     <Route path="/" element={<Home/>}/>
+    //     <Route path="/modals" element={<Modals />} />
+    //     <Route path="/*" element={<Error404/>}/>
+    //   </Routes>
+    //   {/* <MusicSearch/> */}
+    //   {/* <SectionForm /> */}
+    //   {/* <SelectNested/> */}
+    //   {/* <ContacForm/> */}
+    return (
+        <Offcanvas show={isState} onHide={isClose} className={'offCanvas'}>
+            <Offcanvas.Header closeButton className={'offCanvas-header'}>
+                <Offcanvas.Title className={'offCanvas-header_title'}>Pages</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+                <ListGroup variant="flush" className={'offCanvas-group'}>
+                    <ListGroup.Item className={'offCanvas-group_list py-0'}>
+                        <NavLink
+                            exact='true'
+                            to={'/'}
+                            className={(navData) => navData.isActive
+                                ? "NavLinkActive"
+                                : "NavLink"}
+                        >
+                            <h6>Home</h6>
+                        </NavLink>
+                    </ListGroup.Item>
+                    {array.map(el => <ListGroup.Item
+                        key={`${el}`}
+                        className={'offCanvas-group_list py-0'}
+                    >
+                        <NavLink
+                            exact='true'
+                            to={`/${el}`}
+                            className={(navData) => navData.isActive
+                                ? "NavLinkActive"
+                                : "NavLink"}
+                        >
+                            <h6>{el}</h6>
+                        </NavLink>
+                    </ListGroup.Item>)}
+                </ListGroup>
+            </Offcanvas.Body>
+        </Offcanvas>
+    )
+}
+
 export default function SearchAppBar() {
+    const [state, open, close] = useModal(false);
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
+            <AppBar position="static" >
+                <Toolbar >
                     <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
                         sx={{ mr: 2 }}
+                        onClick={open}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -84,6 +140,7 @@ export default function SearchAppBar() {
                     </Search>
                 </Toolbar>
             </AppBar>
+            <OffCanvas isClose={close} isState={state} />
         </Box>
     );
 }

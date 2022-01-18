@@ -1,0 +1,23 @@
+.MusicSearch_header{
+    background-color: brown;
+}
+.MusicSearch_header-logo img{
+    max-width: 40px;
+    animation-name: MusicSearchLogo;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-duration: 3s;
+    animation-timing-function: ease-in;
+    margin: auto;
+    overflow: scroll;
+}
+@keyframes MusicSearchLogo {
+    0%{
+        transform: scale(1);
+        transform: rotateY(0deg);
+    }
+    100%{
+        transform: scale(1.2);
+        transform: rotateY(180deg);
+    }
+}

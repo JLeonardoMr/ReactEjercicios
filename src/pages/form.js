@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import '../css/form.css';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import MediaCard from "./hooks/form-card";
-import { PostFetch } from './helpers/formfetch';
-import { ErrorAlert, ErrorMsg } from "./hooks/error";
-import useGet from "./hooks/useGet";
+import MediaCard from "../hooks/form-card";
+import { PostFetch } from '../helpers/formfetch';
+import { ErrorAlert, ErrorMsg } from "../hooks/error";
+import useGet from "../hooks/useGet";
 
 function LoadMsg({ error, data, reload }) {
     if (error) {
@@ -24,7 +24,7 @@ function LoadMsg({ error, data, reload }) {
     } else {
         return (
             <>
-                <h3>Pendiente</h3>
+                <h3 className='m-5 text-center'>Pendiente</h3>
             </>
         )
     }
@@ -72,6 +72,12 @@ export function SectionForm() {
             }
         })
     }, [error, apiData]);
+
+    useEffect(() => {
+        return () => {
+            console.log('se elimino algo');
+        }
+    }, [])
     return (
         <Row>
             <Col sm={6}>

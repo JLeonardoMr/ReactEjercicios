@@ -1,0 +1,30 @@
+.offCanvas{
+    background-color: #252525;
+}
+.offCanvas-header_title{
+    color: brown;
+}
+.offCanvas-group{
+}
+.offCanvas-group_list{
+    background-color: #252525;
+    border: none;
+}
+.NavLink{
+    color:brown;
+    text-decoration: none;
+}
+.NavLink h6{
+}
+.NavLinkActive{
+    color: whitesmoke;
+    text-decoration: none;
+}
+.NavLinkActive h6{
+    transition: padding .5s;
+    padding-bottom: 10px;
+    border-bottom: solid 1px brown;
+}
+.NavLinkActive:hover{
+    color: whitesmoke;
+}

@@ -1,4 +1,5 @@
-export const PostFetch = ({ method,data,target,id,user,email,post }) => {
+export const PostFetch = ({ method, data, id }) => {
+    let headers = { 'Content-type': 'application/json; charset=UTF-8' }
     if (method === 'POST') {
         let options = {
             method: 'POST',
@@ -7,9 +8,7 @@ export const PostFetch = ({ method,data,target,id,user,email,post }) => {
                 email: data.email,
                 post: data.msg
             }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            }
+            headers
         };
         return fetch('http://localhost:3004/profile/', options)
     } else if (method === 'PUT') {
@@ -20,12 +19,10 @@ export const PostFetch = ({ method,data,target,id,user,email,post }) => {
                 email: data.email,
                 post: data.msg
             }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            }
+            headers
         };
         return fetch(`http://localhost:3004/profile/${data.id}`, options)
-    } else if(method === 'DELETE'){
+    } else if (method === 'DELETE') {
         return fetch(`http://localhost:3004/profile/${id}`, {
             method: 'DELETE',
         })
