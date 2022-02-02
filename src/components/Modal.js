@@ -1,4 +1,4 @@
-import { CloseButton, Col, Row } from 'react-bootstrap';
+import { CloseButton, Col} from 'react-bootstrap';
 import "../css/modal.css"
 
 export const Modalito = ({children, isOpen, closeModal}) => {

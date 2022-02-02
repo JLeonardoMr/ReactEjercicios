@@ -113,6 +113,7 @@ export default function ContacForm() {
             }
         }
         if (e.target.name === 'email') {
+            // eslint-disable-next-line no-useless-escape
             let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/g;
             if (!regex.test(e.target.value)) {
                 setIsValid({

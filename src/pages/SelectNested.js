@@ -24,7 +24,7 @@ function SelectList({ name, title, data, change }) {
 export default function SelectNested() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState({})
-    const [estados, setEstados] = useState([]);
+    const [estados] = useState([]);
     const [municipios, setMunicipios] = useState([]);
     const [parroquias, setParroquias] = useState([]);
     const [selectEstado, setSelectEstado] = useState({})

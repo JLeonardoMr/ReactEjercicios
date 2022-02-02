@@ -1,0 +1,28 @@
+.DarkMod {
+    background-color: #252525;
+}
+.DarkMod h3{
+    color:darkorange;
+}
+.DarkMod p{
+    filter: invert(1);
+    font-weight: bold;
+}
+.DarkMod label{
+    color: darkorange;
+}
+.DarkMod input{
+    filter: invert(1);
+}
+.DarkMod select{
+    background-color: darkorange;
+    font-weight: bold;
+    color: #252525;
+    border:none;
+}
+.DarkMod button{
+    background-color: darkorange;
+    color: #252525;
+    border: solid 1px darkorange;
+    font-weight: bold;
+}

@@ -11,6 +11,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { ListGroup, Offcanvas } from 'react-bootstrap';
 import { NavLink } from "react-router-dom"
 import { useModal } from '../hooks/useModal';
+import { Container } from "react-bootstrap";
+import { Outlet } from "react-router-dom"
 import "../css/navbar.css";
 
 
@@ -58,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const OffCanvas = ({ isState, isClose }) => {
-    let array = ['Modal', 'MusicSearch', "Select", 'ContacForm', 'work','User']
+    let array = ["Calculadora",'Lenguaje','Contador','Dashboard', 'Users', 'Modal', 'MusicSearch', "Select", 'ContacForm', 'Work', 'Productos', 'About']
     //     <Route path="/" element={<Home/>}/>
     //     <Route path="/modals" element={<Modals />} />
     //     <Route path="/*" element={<Error404/>}/>
@@ -85,6 +87,17 @@ const OffCanvas = ({ isState, isClose }) => {
                             <h6>Home</h6>
                         </NavLink>
                     </ListGroup.Item>
+                    <ListGroup.Item className={'offCanvas-group_list py-0'}>
+                        <NavLink
+                            exact='true'
+                            to={'/login'}
+                            className={(navData) => navData.isActive
+                                ? "NavLinkActive"
+                                : "NavLink"}
+                        >
+                            <h6>Login</h6>
+                        </NavLink>
+                    </ListGroup.Item>
                     {array.map(el => <ListGroup.Item
                         key={`${el}`}
                         className={'offCanvas-group_list py-0'}
@@ -108,40 +121,45 @@ const OffCanvas = ({ isState, isClose }) => {
 export default function SearchAppBar() {
     const [state, open, close] = useModal(false);
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" >
-                <Toolbar >
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                        onClick={open}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
-                        Ejercicios en React.JS
-                    </Typography>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
-                </Toolbar>
-            </AppBar>
-            <OffCanvas isClose={close} isState={state} />
-        </Box>
+        <>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static" >
+                    <Toolbar >
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            sx={{ mr: 2 }}
+                            onClick={open}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                        >
+                            Ejercicios en React.JS
+                        </Typography>
+                        <Search>
+                            <SearchIconWrapper>
+                                <SearchIcon />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder="Search…"
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
+                        </Search>
+                    </Toolbar>
+                </AppBar>
+                <OffCanvas isClose={close} isState={state} />
+            </Box>
+            <Container fluid>
+                <Outlet />
+            </Container>
+        </>
     );
 }
 

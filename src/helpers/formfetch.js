@@ -10,7 +10,7 @@ export const PostFetch = ({ method, data, id }) => {
             }),
             headers
         };
-        return fetch('http://localhost:3004/profile/', options)
+        return fetch('http://localhost:5000/profile/', options)
     } else if (method === 'PUT') {
         let options = {
             method: 'PUT',
@@ -21,9 +21,9 @@ export const PostFetch = ({ method, data, id }) => {
             }),
             headers
         };
-        return fetch(`http://localhost:3004/profile/${data.id}`, options)
+        return fetch(`http://localhost:5000/profile/${data.id}`, options)
     } else if (method === 'DELETE') {
-        return fetch(`http://localhost:3004/profile/${id}`, {
+        return fetch(`http://localhost:5000/profile/${id}`, {
             method: 'DELETE',
         })
     }
