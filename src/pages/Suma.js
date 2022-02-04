@@ -101,8 +101,8 @@ export const Suma = () => {
             state.porcentaje = true;
         }
         //? agrego el valor al panel, sumandolo con el que ya existe
-        state.panel += e.target.innerHTML.replace("CE", "").replace("C", "").replace("←", "");
-        state.value1 += e.target.innerHTML.replace(type.suma, "").replace(type.resta, "").replace(type.multiplicacion, "").replace(type.division, "").replace(type.porcentaje, "").replace("CE", "").replace("C", "").replace("←", "");
+        state.panel += e.target.innerHTML;
+        state.value1 += e.target.innerHTML.replace(type.suma, "").replace(type.resta, "").replace(type.multiplicacion, "").replace(type.division, "").replace(type.porcentaje, "");
         //? si el valor que viene en el value 1 no contiene un (punto ".") lo parseo a Int, de lo contrario lo parseo a float
         if (state.value1.indexOf(".") < 0) {
             state.float = false;

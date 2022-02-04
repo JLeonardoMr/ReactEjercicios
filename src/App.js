@@ -18,6 +18,7 @@ import { User } from "./components/User";
 import Contador from "./pages/Contador";
 import { Lenguaje } from "./pages/Lenguaje";
 import { Suma } from "./pages/Suma";
+import { ReduxApp } from "./pages/reduxApp";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="modal" element={<Modals />} />
           <Route exact path="contador" element={<Contador />} />
           <Route exact path="productos" element={<Productos />} />
+          <Route exact path="reduxApp" element={<ReduxApp />} />
           <Route exact path="about" element={<About />} />
           <Route exact path="calculadora" element={<Suma />} />
           {/*OJITO CON ESTAS REDIRECIONES */}

@@ -60,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const OffCanvas = ({ isState, isClose }) => {
-    let array = ["Calculadora",'Lenguaje','Contador','Dashboard', 'Users', 'Modal', 'MusicSearch', "Select", 'ContacForm', 'Work', 'Productos', 'About']
+    let array = ["Calculadora",'Lenguaje','Contador','Dashboard', 'Users', 'Modal', 'MusicSearch', "Select", 'ContacForm', 'Work', 'Productos','ReduxApp', 'About']
     //     <Route path="/" element={<Home/>}/>
     //     <Route path="/modals" element={<Modals />} />
     //     <Route path="/*" element={<Error404/>}/>
