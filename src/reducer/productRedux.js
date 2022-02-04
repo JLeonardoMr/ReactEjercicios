@@ -1,4 +1,4 @@
-import { PRODUCT_ADD, PRODUCT_CLEAR, PRODUCT_DELETE, PRODUCT_ONE_DELETE, PRODUCT_SHOW } from "../action/reduxAction";
+import { TYPES } from "../action/reduxAction";
 
 export const initialProductState = {
     products: [
@@ -58,21 +58,82 @@ export const initialProductState = {
 }
 export default function ProductRedux(state = initialProductState, action) {
     switch (action.type) {
-        case PRODUCT_ADD:
-
-            return;
-        case PRODUCT_ONE_DELETE:
-
-            return;
-        case PRODUCT_DELETE:
-
-            return;
-        case PRODUCT_SHOW:
-
-            return;
-        case PRODUCT_CLEAR:
-
-            return;
+        case TYPES.PRODUCT_ADD:
+            //! Busco el producto que se me manda en el action
+            const product = state.cart.find(el => el.id === action.payload.id)
+            //! Pregunto mediante un operador ternario si el producto buscado existe
+            return product
+                //! Si el producto existe
+                ? {
+                    //! Copio el estado original y le agrego el "cart"
+                    ...state,
+                    //! Recorro el cart en el estado y si este lo encuenta
+                    cart: state.cart.map(el =>
+                        el.id === action.payload.id
+                            //! Sumara la cantidad + 1
+                            ? { ...el, quantity: el.quantity + 1 }
+                            : el
+                    )
+                }
+                //! Si el producto no existe
+                : {
+                    //! Copio el estado original y le agrego el "cart" como un array
+                    ...state,
+                    cart: [
+                        //! Copio lo que estaba dentro de cart y como no existe el item
+                        ...state.cart,
+                        {
+                            //! Lo agrego como objeto mas las cantidad en 1
+                            ...action.payload,
+                            quantity: 1
+                        }
+                    ]
+                };
+        case TYPES.PRODUCT_ONE_DELETE:
+            //! En el stado demtro de cart 
+            //! Busco el id del producto que se me manda en el action
+            const productDelete = state.cart.find(el => el.id === action.payload);
+            //! Pregunto, si el quantity es mayor a 1
+            return productDelete.quantity > 1
+                //! Si quantity es mayor a 1 
+                ? {
+                    //! Hago una copia del estado y le agrego cart
+                    ...state,
+                    //! Recorro el cart en el estado y si este lo encuenta
+                    cart: state.cart.map(el =>
+                        el.id === action.payload
+                            //! Restara la cantida - 1
+                            ? { ...el, quantity: el.quantity - 1 }
+                            : el
+                    )
+                }
+                //! Si es menor a 1
+                : {
+                    ...state,
+                    //! filtra el item
+                    cart: state.cart.filter(el => el.id !== action.payload)
+                };
+        case TYPES.PRODUCT_DELETE:
+            //! Creo una copia del estado
+            return {
+                ...state,
+                //! Filtro el producto del cart
+                cart: state.cart.filter(el => el.id !== action.payload)
+            };
+        case TYPES.PRODUCT_SHOW:
+            //! Creo una copia del estado
+            return {
+                ...state,
+                //! Agrego a active lo que viene en el action
+                active: action.payload
+            };
+        case TYPES.PRODUCT_CLEAR:
+            //! Creo una copia del estado
+            return {
+                ...state,
+                //! Agrego el cart con un array vacio
+                cart: []
+            };
 
         default:
             return state;
