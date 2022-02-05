@@ -215,11 +215,11 @@
         "id": 50,
         "title": "Product #50"
       }
-    ],
-    "cart": [],
-    "active": {
-      "id": 2,
-      "title": "Product #2"
-    }
+    ]
+  },
+  "cart": [],
+  "active": {
+    "id": 2,
+    "title": "Product #2"
   }
 }
