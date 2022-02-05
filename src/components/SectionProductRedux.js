@@ -18,12 +18,17 @@ export const SectionProductRedux = () => {
     let start = parseInt(query.get('inicio')) || 1;
     let end = parseInt(query.get('fin')) || MAXIMO;
     let navigator = useNavigate();
-    const handleNext = () => {
-        if (start !== 1) navigator({ search: `?inicio=${start - MAXIMO}&fin=${end - MAXIMO}` });
+    // console.log("query:", query, "search:", search, "start:", start, "end", end, "products", products.length);
+    const handlePrev = (e) => {
+        if (end === 30) {
+            navigator({ search: `?inicio=${start - MAXIMO}&fin=${MAXIMO}` });
+        } else if (start !== 1) navigator({ search: `?inicio=${start - MAXIMO}&fin=${end - MAXIMO}` });
     };
-    const handlePrev = () => {
-        navigator({ search: `?inicio=${start + MAXIMO}&fin=${end + MAXIMO}` })
-    }
+    const handleNext = (e) => {
+        (end + 20) > products.length
+            ? navigator({ search: `?inicio=${start + MAXIMO}&fin=${products.length}` })
+            : navigator({ search: `?inicio=${start + MAXIMO}&fin=${end + MAXIMO}` })
+    };
     return <>
         <Col className='row'>
             <Col className='row col-8'>
@@ -52,6 +57,14 @@ export const SectionProductRedux = () => {
                         : null
                     )
                 }
+                <Col>
+                    {
+                        (start > 2) && (<Button className='mx-1' size="sm" onClick={handlePrev}>atras</Button>)
+                    }
+                    {
+                        (products.length > end) && (<Button className='mx-1' size="sm" onClick={handleNext}>adelante</Button>)
+                    }
+                </Col>
             </Col>
             <Col>
                 <h3> {cart.length !== 0 ? `Cart Item's: ${cart.length}` : null}</h3>
