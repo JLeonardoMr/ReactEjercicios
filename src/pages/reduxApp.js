@@ -10,7 +10,7 @@ export const ReduxApp = () => {
         <Provider store={store}>
             <Row>
                 <Col className='col-12 text-center'>
-                    <h2>App Redux / React-Redux Product</h2>
+                    <h2>App Redux React-Redux / Product</h2>
                 </Col>
                 <SectionProductRedux />
             </Row>
